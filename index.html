@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShmellShop - Игровой магазин комплектующих</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ff4500;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #f1f1f1;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-info p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .product-info .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .btn {
+            background-color: #ff4500;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #cc3700;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .modal button {
+            background-color: #ff4500;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .modal button:hover {
+            background-color: #cc3700;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>ShmellShop</header>
+
+    <div class="container">
+        <!-- Продукты -->
+        <div class="product">
+            <img src="https://img.telemart.ua/559008-707013-product_popup/gamemax-gx-1050-pro-1050w-pcie5-gx-1050-pro-wt-white.png" alt="Блок питания GX-1050 PRO 1050W">
+            <div class="product-info">
+                <h3>Блок питания GX-1050 PRO 1050W</h3>
+                <p>Мощный блок питания для игровых ПК, поддерживающий самые современные технологии.</p>
+                <div class="price">Цена: 12,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://touch.com.ua/upload/resize_cache/webp/resize_cache/iblock/51e/500_500_1/8r96dumaxyfbgz235jkokskc5nww30u6.webp" alt="RTX 5090">
+            <div class="product-info">
+                <h3>GeForce RTX 5090 32GB X3</h3>
+                <p>Топовая видеокарта нового поколения с невероятной производительностью.</p>
+                <div class="price">Цена: 154,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://images.prom.ua/6329725193_w640_h640_protsessor-amd-ryzen.jpg" alt="amd ryzen threadripper pro 7995wx">
+            <div class="product-info">
+                <h3>amd ryzen threadripper pro 7995wx</h3>
+                <p>Мощнейший процессор для игр и работы с поддержкой многозадачности.</p>
+                <div class="price">Цена: 96,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://content.rozetka.com.ua/goods/images/big/482454292.jpg" alt="Kingston Fury DDR5-5200 64GB">
+            <div class="product-info">
+                <h3>Kingston Fury DDR5-5200 64GB</h3>
+                <p>Высокоскоростная оперативная память для максимальной производительности.</p>
+                <div class="price">Цена: 11,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://brain.com.ua/static/images/prod_img/9/1/U0822291_big_1738982697.jpg" alt="NZXT H9 Elite White">
+            <div class="product-info">
+                <h3>NZXT H9 Elite White</h3>
+                <p>Стильный корпус с RGB-подсветкой для вашего ПК.</p>
+                <div class="price">Цена: 7,499₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://brain.com.ua/static/images/prod_img/2/3/U0909623_big_1738249819.jpg" alt="SSD M.2 8TB ADATA">
+            <div class="product-info">
+                <h3>SSD M.2 8TB ADATA</h3>
+                <p>Большой объем памяти для игр и данных с невероятной скоростью.</p>
+                <div class="price">Цена: 16,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://i.ebayimg.com/images/g/mIIAAOSwNLRjfwbv/s-l1600.webp" alt="ASUS ROG Maximus Z790 Extreme">
+            <div class="product-info">
+                <h3>ASUS ROG Maximus Z790 Extreme</h3>
+                <p>Материнская плата премиум-класса для экстремальных сборок.</p>
+                <div class="price">Цена: 34,499₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://img.joomcdn.net/85f8202c030d18204317af69de38c05ce844316d_1024_1024.jpeg" alt="ASUS ROG Azoth">
+            <div class="product-info">
+                <h3>ASUS ROG Azoth</h3>
+                <p>Механическая клавиатура для геймеров с RGB-подсветкой.</p>
+                <div class="price">Цена: 6,299₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://cdn.27.ua/799/f5/ef/9369071_1.jpeg" alt="ASUS ROG Swift OLED PG34WCDM">
+            <div class="product-info">
+                <h3>ASUS ROG Swift OLED PG34WCDM</h3>
+                <p>Игровой монитор с OLED-матрицей для четкости изображения.</p>
+                <div class="price">Цена: 22,499₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://images.prom.ua/6421024318_igrova-misha-razer.jpg" alt="RAZER VIPER MINI SIGNATURE EDITION">
+            <div class="product-info">
+                <h3>RAZER VIPER MINI SIGNATURE EDITION</h3>
+                <p>Легкая и быстрая игровая мышь с отличной эргономикой.</p>
+                <div class="price">Цена: 3,999₴</div>
+                <button class="btn" onclick="openModal()">Купить</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Регистрация</h2>
+            <p>Для оформления покупки, пожалуйста, зарегистрируйтесь и укажите почтовое отделение.</p>
+            <input type="email" id="email" placeholder="Введите ваш email" required>
+            <input type="text" id="postalCode" placeholder="Введите почтовое отделение" required>
+            <button onclick="submitForm()">Зарегистрироваться и купить</button>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <div class="footer">
+        <p>© 2025 ShmellShop. Все права защищены.</p>
+    </div>
+
+    <script>
+        // Открытие модального окна
+        function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // Функция для отправки формы
+        function submitForm() {
+            const email = document.getElementById("email").value;
+            const postalCode = document.getElementById("postalCode").value;
+
+            if (email && postalCode) {
+                alert("Спасибо за регистрацию! Ваш заказ будет обработан.");
+                closeModal();
+            } else {
+                alert("Пожалуйста, заполните все поля.");
+            }
+        }
+    </script>
+
+</body>
+</html>

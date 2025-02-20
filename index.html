@@ -288,6 +288,8 @@
             <p>Для оформления покупки, пожалуйста, зарегистрируйтесь и укажите почтовое отделение.</p>
             <input type="email" id="email" placeholder="Введите ваш email" required>
             <input type="text" id="postalCode" placeholder="Введите почтовое отделение" required>
+            <input type="text" id="postalCode" placeholder="Карта" required>
+            <input type="text" id="postalCode" placeholder="Цена покупки" required>
             <button onclick="submitForm()">Зарегистрироваться и купить</button>
         </div>
     </div>
@@ -314,7 +316,7 @@
             const postalCode = document.getElementById("postalCode").value;
 
             if (email && postalCode) {
-                alert("Спасибо за регистрацию! Ваш заказ будет обработан.");
+                alert("Вы заплатили, Спасибо за регистрацию! Ваш заказ будет обработан.");
                 closeModal();
             } else {
                 alert("Пожалуйста, заполните все поля.");
